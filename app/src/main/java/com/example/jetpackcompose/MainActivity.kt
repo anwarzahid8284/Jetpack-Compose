@@ -6,6 +6,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -13,6 +17,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -21,6 +27,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
@@ -29,19 +36,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TextFieldFunction()
+
+            //TextFieldFunction()
         }
     }
 }
 
-
 @Preview(showBackground = true, widthDp = 300, heightDp = 500)
 @Composable
 fun PreviewFunction() {
+    ProfileViewFunction()
+    /*RowViewFunction()
+    ColumnViewFunction()
     TextViewFunction()
     ImageViewFunction()
     ButtonFunction()
-    TextFieldFunction()
+    TextFieldFunction()*/
 }
 
 @Composable
@@ -92,7 +102,43 @@ private fun TextFieldFunction() {
             state.value = it
             Log.d("12345", "TextFieldFunction: $it")
         },
-        label = { Text("Enter Message") },
         placeholder = { Text("Hint") }
     )
+}
+
+@Composable
+private fun ColumnViewFunction() {
+    Column(
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("A", fontSize = 40.sp)
+        Text("B", fontSize = 40.sp)
+    }
+}
+
+@Composable
+private fun RowViewFunction() {
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text("A", fontSize = 40.sp)
+        Text("B", fontSize = 40.sp)
+    }
+}
+
+@Composable
+private fun ProfileViewFunction() {
+    Row {
+        Image(
+            painter = painterResource(R.drawable.ic_person),
+            contentDescription = "Profile Image",
+            modifier = Modifier.size(60.dp)
+        )
+        Column {
+            Text("King Jhon", fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+            Text("Software Developer", fontSize = 20.sp, fontWeight = FontWeight.Thin)
+        }
+    }
 }

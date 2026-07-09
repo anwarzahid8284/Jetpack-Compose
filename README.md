@@ -32,3 +32,64 @@ private fun TextFieldFunction() {
         placeholder = { Text("Enter text") }
     )
 }
+```
+
+### 🔹 Day 2: Layout Basics (`Column`, `Row`, `Box`) & Positioning
+
+Today, I learned how to structure layouts in Jetpack Compose using the three core layout composables: **Column**, **Row**, and **Box**. I also explored how to position items inside them using **Arrangement** and **Alignment**.
+
+---
+
+## 📐 The Big Three Layouts
+
+| Layout | Direction | Description |
+| :--- | :--- | :--- |
+| **`Column`** | ⬇️ Vertical | Stacks items sequentially from top to bottom. |
+| **`Row`** | ➡️ Horizontal | Places items sequentially from left to right. |
+| **`Box`** | 🔲 Z-Axis (Stacked) | Stacks items on top of each other (like layers). Useful for overlays. |
+---
+
+## 🔀 Arrangement vs. Alignment
+
+It is easy to mix these up! Here is the golden rule to remember:
+* **Arrangement:** Controls how items are spaced out along the **Main Axis** (the direction the layout moves).
+* **Alignment:** Controls how items are positioned along the **Cross Axis** (the perpendicular direction).
+
+### 1. Column Positioning
+* **Main Axis (Vertical):** Controlled by `verticalArrangement` (e.g., `Arrangement.SpaceEvenly`, `Arrangement.Center`).
+* **Cross Axis (Horizontal):** Controlled by `horizontalAlignment` (e.g., `Alignment.CenterHorizontally`, `Alignment.Start`).
+
+### 2. Row Positioning
+* **Main Axis (Horizontal):** Controlled by `horizontalArrangement` (e.g., `Arrangement.SpaceEvenly`, `Arrangement.End`).
+* **Cross Axis (Vertical):** Controlled by `verticalAlignment` (e.g., `Alignment.CenterVertically`, `Alignment.Top`).
+
+---
+
+## 🛠️ Code Snippets & Implementation
+
+### 🏙️ Column & Row Arrangements
+Here is how `Column` and `Row` distribute elements evenly using `SpaceEvenly`:
+
+```kotlin
+@Composable
+private fun ColumnViewFunction() {
+    Column(
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("A", fontSize = 40.sp)
+        Text("B", fontSize = 40.sp)
+    }
+}
+
+@Composable
+private fun RowViewFunction() {
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text("A", fontSize = 40.sp)
+        Text("B", fontSize = 40.sp)
+    }
+}
+```
