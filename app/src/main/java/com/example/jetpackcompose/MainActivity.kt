@@ -6,10 +6,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -19,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -45,8 +50,8 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true, widthDp = 300, heightDp = 500)
 @Composable
 fun PreviewFunction() {
-    ProfileViewFunction()
-    /*RowViewFunction()
+    /*ProfileViewFunction()
+    RowViewFunction()
     ColumnViewFunction()
     TextViewFunction()
     ImageViewFunction()
@@ -141,4 +146,20 @@ private fun ProfileViewFunction() {
             Text("Software Developer", fontSize = 20.sp, fontWeight = FontWeight.Thin)
         }
     }
+}
+
+@Preview(showBackground = true, widthDp = 300, heightDp = 500)
+@Composable
+fun ModifierFunction(){
+    Text(
+        text = "Hello Developer",
+        color = Color.Black,
+        modifier = Modifier
+            .background(Color.Blue)
+            .size(200.dp)
+            .padding(36.dp)
+            .border(4.dp, color = Color.White)
+            .clip(CircleShape)
+            .background(Color.Yellow)
+    )
 }
