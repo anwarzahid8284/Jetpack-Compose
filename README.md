@@ -93,3 +93,49 @@ private fun RowViewFunction() {
     }
 }
 ```
+
+### 🔹 Day 3: Displaying Lists (`Column` vs. `LazyColumn`)
+
+Today, I explored how to display lists of items in Jetpack Compose. I compared using a standard `Column` with vertical scrolling against using a `LazyColumn` for dynamic data.
+
+---
+
+## 🆚 Column vs. LazyColumn: The Core Difference
+
+When handling lists, performance is everything. Here is how they stack up:
+
+| Feature | `Column` + `verticalScroll` | `LazyColumn` |
+| :--- | :--- | :--- |
+| **Android XML Equivalent** | Like a standard `ScrollView` / `ListView` | Like a **`RecyclerView`** |
+| **Rendering Behavior** | Renders **all** list elements immediately, even if they are off-screen. | Renders **only** the items currently visible on the screen. |
+| **Performance** | Poor for large lists (causes lag and high memory usage). | Excellent for large or infinite lists (recycles views efficiently). |
+| **Best Used For** | Small, fixed sets of items (e.g., settings screens). | Large, dynamic, or unpredictable datasets (e.g., feeds, item logs). |
+
+---
+
+
+
+## 🛠️ Code Snippet & Implementation
+
+Inside Compose, `LazyColumn` exposes a `LazyListScope` DSL, using functions like `items()` to dynamically load data instead of standard Kotlin loops like `forEach`.
+
+```kotlin
+@Preview(heightDp = 500, widthDp = 300)
+@Composable
+fun PreviewItem() {
+    
+    // 💡 OPTION 1: LazyColumn (Best Practice for dynamic lists - Recycler View equivalent)
+    LazyColumn {
+        items(getBlogList()) { blog ->
+            BlogCategory(blog.img, blog.title, blog.description)
+        }
+    }
+
+    /* // ⚠️ OPTION 2: Column + ScrollState (Not ideal for large lists - ScrollView equivalent)
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        getBlogList().forEach { blog ->
+            BlogCategory(blog.img, blog.title, blog.description)
+        }
+    }
+    */
+}
