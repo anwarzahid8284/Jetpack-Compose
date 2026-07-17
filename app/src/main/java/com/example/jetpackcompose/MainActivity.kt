@@ -9,8 +9,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -41,7 +43,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
             //TextFieldFunction()
         }
     }
@@ -50,6 +51,12 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true, widthDp = 300, heightDp = 500)
 @Composable
 fun PreviewFunction() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Recomposable()
+    }
     /*ProfileViewFunction()
     RowViewFunction()
     ColumnViewFunction()
@@ -147,8 +154,15 @@ private fun ProfileViewFunction() {
         }
     }
 }
-
-@Preview(showBackground = true, widthDp = 300, heightDp = 500)
+@Composable
+private fun Recomposable(){
+    val state = remember { mutableStateOf(0.0) }
+    Log.d("12345", "Recomposable: function block")
+    Button(onClick ={state.value = Math.random()}, modifier = Modifier.size(150.dp, 50.dp)) {
+        Text(text = state.value.toString())
+        Log.d("12345", "Recomposable: ")
+    }
+}
 @Composable
 fun ModifierFunction(){
     Text(
