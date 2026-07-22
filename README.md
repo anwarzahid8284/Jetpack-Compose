@@ -139,3 +139,58 @@ fun PreviewItem() {
     }
     */
 }
+```
+
+### 🔹 Day 4: State Management Part 2 (State Hoisting & Unidirectional Data Flow)
+
+Today, I took state management a step further by learning **State Hoisting**, **Unidirectional Data Flow (UDF)**, and the difference between `remember` and `rememberSaveable`.
+
+---
+
+## 🔄 Core Concepts
+
+### 1. Unidirectional Data Flow (UDF)
+In Jetpack Compose, data flows down, and events flow up:
+* **Data (State) flows down:** Parent composables pass values down to child composables.
+* **Events flow up:** Child composables notify the parent when an action occurs (e.g., button click) via lambdas.
+
+### 2. State Hoisting
+State hoisting is the pattern of moving state to a caller (parent) to make a composable **stateless**.
+* **Stateless composables** are easier to test, reuse, and maintain because they don't manage their own internal state.
+
+### 3. `remember` vs `rememberSaveable`
+* **`remember`:** Survives recomposition, but **loses state on screen rotation** or configuration changes.
+* **`rememberSaveable`:** Survives both recomposition **and configuration changes** (like screen rotation) by saving state in a `Bundle`.
+
+---
+
+## 🛠️ Code Snippet & Implementation
+
+In this example, `PreviewFunction` holds (hoists) the state and passes `counter.value` down to `NotificationCounter` and `MessageBar`. When the button inside `NotificationCounter` is clicked, an event is sent back up to update the count.
+
+```kotlin
+@Preview(showBackground = true, widthDp = 300, heightDp = 500)
+@Composable
+fun PreviewFunction() {
+    // 💡 Using rememberSaveable so state survives screen rotation!
+    val counter: MutableState<Int> = rememberSaveable { mutableStateOf(0) }
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // State flows down (counter.value), event flows up (lambda update)
+            NotificationCounter(
+                count = counter.value,
+                onIncrement = { counter.value++ }
+            )
+            
+            // Reuses the same hoisted state
+            MessageBar(count = counter.value)
+        }
+    }
+}

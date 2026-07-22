@@ -18,11 +18,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.nio.file.WatchEvent
 
 class MainActivity : ComponentActivity() {
 
@@ -51,13 +55,31 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true, widthDp = 300, heightDp = 500)
 @Composable
 fun PreviewFunction() {
+    val counter : MutableState<Int> = rememberSaveable {  mutableStateOf(0)}
     Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            NotificationCounter(counter.value) {
+                counter.value++
+            }
+            MessageBar(counter.value)
+        }
+
+    }
+
+
+    /*Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Recomposable()
     }
-    /*ProfileViewFunction()
+    ProfileViewFunction()
     RowViewFunction()
     ColumnViewFunction()
     TextViewFunction()
@@ -176,4 +198,38 @@ fun ModifierFunction(){
             .clip(CircleShape)
             .background(Color.Yellow)
     )
+}
+
+@Composable
+fun NotificationCounter(counter: Int, onClick: () -> Unit) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Text(text = "You have ${counter} notification send.", fontSize = 18.sp, fontWeight = FontWeight.Normal)
+        Button(onClick = {
+            onClick.invoke()
+        } ) {
+            Text(text = "Send Notification", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+        }
+
+    }
+}
+
+@Composable
+fun MessageBar(counter:Int){
+    Card {
+        Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(R.drawable.ic_person),
+                contentDescription = "Profile Image",
+                modifier = Modifier
+                    .size(48.dp)
+                    .padding(8.dp)
+            )
+            Text("Notification send so far - $counter")
+
+        }
+    }
 }
