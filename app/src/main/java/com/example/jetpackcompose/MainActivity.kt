@@ -39,7 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.nio.file.WatchEvent
+import com.example.jetpackcompose.screems.QuotesListItem
 
 class MainActivity : ComponentActivity() {
 
@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            //TextFieldFunction()
+
         }
     }
 }
@@ -55,7 +55,8 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true, widthDp = 300, heightDp = 500)
 @Composable
 fun PreviewFunction() {
-    val counter : MutableState<Int> = rememberSaveable {  mutableStateOf(0)}
+
+    /*val counter : MutableState<Int> = rememberSaveable {  mutableStateOf(0)}
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -70,7 +71,7 @@ fun PreviewFunction() {
             MessageBar(counter.value)
         }
 
-    }
+    }*/
 
 
     /*Box(
